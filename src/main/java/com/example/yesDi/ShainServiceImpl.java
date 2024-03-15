@@ -1,12 +1,19 @@
-package com.example.NoDI;
+package com.example.yesDi;
 
+@Service // Bean化
 public class ShainServiceImpl implements ShainService {
+
+    private final ShainRepository shainRepository;
+
+    // ShainRepositoryのDI
+    public ShainServiceImpl(ShainRepository shainRepository) {
+        this.shainRepository = shainRepository;
+    }
+
     @Override
     public String findByNo(String number) {
         // リポジトリから社員を選択
-        ShainRepository shainRepository = new ShainRepositoryImpl();
         String name = shainRepository.selectByNo(number);
         return name;
     }
-
 }
