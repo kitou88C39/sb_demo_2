@@ -6,7 +6,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.ShainForm;
+
 public class ShainController {
+    private final ShainService shainService;
+
+    // ShainServiceのDI
+    public ShainController(ShainService shainService) {
+        this.shainService = shainService;
+    }
 
     @RequestMapping("/input")
     public String index() {
@@ -20,9 +28,6 @@ public class ShainController {
             return "index.html";
         }
 
-        // String name = "コントローラー太郎";
-        // サービス層から社員を検索
-        ShainService shainService = new ShainServiceImpl();
         String name = shainService.findByNo(shainForm.getNumber());
 
         model.addAttribute("number", shainForm.getNumber());
